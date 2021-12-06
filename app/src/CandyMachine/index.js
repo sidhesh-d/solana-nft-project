@@ -95,7 +95,7 @@ const CandyMachine = ({ walletAddress }) => {
       goLiveDateTimeString,
     });
   };
-
+  // eslint-disable-next-line
   const fetchHashTable = async (hash, metadataEnabled) => {
     const connection = new web3.Connection(
       process.env.REACT_APP_SOLANA_RPC_HOST
