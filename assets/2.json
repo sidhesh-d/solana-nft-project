@@ -1,0 +1,19 @@
+{
+  "name": "Growing Green",
+  "symbol": "",
+  "image": "2.png",
+  "properties": {
+    "files": [
+      {
+        "uri": "2.png",
+        "type": "image/png"
+      }
+    ],
+    "creators": [
+      {
+        "address": "CJ5x5qVT5iEEd8Nj52922tgBEQkczmj6gKBXvFh9NVEf",
+        "share": 100
+      }
+    ]
+  }
+}
