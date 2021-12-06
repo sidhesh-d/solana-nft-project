@@ -62,12 +62,6 @@ const App = () => {
          {walletAddress && <CandyMachine walletAddress={window.solana} />}
         </div>
         <div className="footer-container">
-          <a
-            className="footer-text"
-            href={TWITTER_LINK}
-            target="_blank"
-            rel="noreferrer"
-          ></a>
         </div>
       </div>
     </div>
