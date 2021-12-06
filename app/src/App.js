@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import CandyMachine from './CandyMachine';
 // Constants
-const TWITTER_HANDLE = '_buildspace';
-const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
 //2VJxgDyy1xEo8HXNNMCoc8K32bqTayNUFgV7wY8ikMw9
 const App = () => {
   const [walletAddress, setWalletAddress] = useState(null);
