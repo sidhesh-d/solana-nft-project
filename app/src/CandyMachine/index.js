@@ -35,6 +35,7 @@ const MAX_CREATOR_LEN = 32 + 1 + 1;
 const CandyMachine = ({ walletAddress }) => {
   // Actions
   const [machineStats, setMachineStats] = useState(null);
+  const [mints, setMints] = useState([]);
   const getProvider = () => {
     const rpcHost = process.env.REACT_APP_SOLANA_RPC_HOST;
     // Create a new connection object
@@ -94,6 +95,29 @@ const CandyMachine = ({ walletAddress }) => {
       goLiveData,
       goLiveDateTimeString,
     });
+
+    const data = await fetchHashTable(
+      process.env.REACT_APP_CANDY_MACHINE_ID,
+      true
+    );
+
+    if (data.length !== 0) {
+      for (const mint of data) {
+        // Get URI
+        const response = await fetch(mint.data.uri);
+        const parse = await response.json();
+        console.log("Past Minted NFT", mint)
+
+        // Get image URI
+        if (!mints.find((mint) => mint === parse.image)) {
+          setMints((prevState) => [...prevState,
+            {'image': parse.image,
+            'name': parse.name
+            }
+          ]);
+        }
+      }
+    }
   };
   // eslint-disable-next-line
   const fetchHashTable = async (hash, metadataEnabled) => {
@@ -320,6 +344,20 @@ const CandyMachine = ({ walletAddress }) => {
     });
   };
 
+  const renderMintedItems = () => (
+    <div className="gif-container">
+      <p className="sub-text">Minted Items ✨</p>
+      <div className="gif-grid">
+        {mints.map((mint) => (
+          <div className="gif-item" key={mint}>
+            <img src={mint.image} alt={`Minted NFT ${mint}`} />
+            <div className="mint-name">{mint.name}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
   useEffect(() => {
     getCandyMachineState();
   }, []);// eslint-disable-line react-hooks/exhaustive-deps
@@ -333,6 +371,8 @@ const CandyMachine = ({ walletAddress }) => {
         <button className="cta-button mint-button" onClick={mintToken}>
             Mint NFT
         </button>
+        {/* If we have mints available in our array, let's render some items */}
+        {mints.length > 0 && renderMintedItems()}
       </div>
     )
   );
