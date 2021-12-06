@@ -26,8 +26,7 @@ const MAX_CREATOR_LEN = 32 + 1 + 1;
 
 const CandyMachine = ({ walletAddress }) => {
   // Actions
-  /*eslint no-unused-vars: ["error", { "varsIgnorePattern": "[iI]gnored" }]*/
-
+  /* eslint-disable no-unused-vars */
   const [machineStats, setMachineStats] = useState(null);
   const getProvider = () => {
     const rpcHost = process.env.REACT_APP_SOLANA_RPC_HOST;
