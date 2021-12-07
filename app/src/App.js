@@ -61,6 +61,7 @@ const App = () => {
          {walletAddress && <CandyMachine walletAddress={window.solana} />}
         </div>
         <div className="footer-container">
+          <p>h/t <a href="https://www.artaigallery.com/">artaigallery</a></p>
         </div>
       </div>
     </div>

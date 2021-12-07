@@ -388,7 +388,7 @@ const CandyMachine = ({ walletAddress }) => {
     }
 
     // Else let's just return the current drop date
-    return <p>{`Drop Date: ${machineStats.goLiveDateTimeString}`}</p>;
+    return <p>Minting Now!</p>;
   };
 
   const renderMintButton = () => (
@@ -412,7 +412,6 @@ const CandyMachine = ({ walletAddress }) => {
       <div className="page-container">
       <div className="machine-container">
         {renderDropTimer()}
-        <p>{`Drop Date: ${machineStats.goLiveDateTimeString}`}</p>
 
         {!mintingAllowed && (
           <div>
