@@ -11,6 +11,7 @@ import {
   SPL_ASSOCIATED_TOKEN_ACCOUNT_PROGRAM_ID,
 } from './helpers';
 // eslint-disable-next-line
+import CountdownTimer from '../CountdownTimer/CountdownTimer';
 
 const {
   // eslint-disable-next-line
@@ -37,6 +38,7 @@ const CandyMachine = ({ walletAddress }) => {
   const [machineStats, setMachineStats] = useState(null);
   const [mints, setMints] = useState([]);
   const [isMinting, setIsMinting] = useState(false);
+  const [mintingAllowed, setMintingAllowed] = useState(false);
   const [isLoadingMints, setIsLoadingMints] = useState(false);
   const getProvider = () => {
     const rpcHost = process.env.REACT_APP_SOLANA_RPC_HOST;
@@ -98,6 +100,9 @@ const CandyMachine = ({ walletAddress }) => {
       goLiveDateTimeString,
     });
     setIsLoadingMints(true);
+    const currentDate = new Date();
+    const dropDate = new Date(goLiveData * 1000);
+    setMintingAllowed(currentDate>dropDate);
     const data = await fetchHashTable(
       process.env.REACT_APP_CANDY_MACHINE_ID,
       true
@@ -364,6 +369,34 @@ const CandyMachine = ({ walletAddress }) => {
     </div>
   );
 
+  // Create render function
+  const renderDropTimer = () => {
+    // Get the current date and dropDate in a JavaScript Date object
+    const currentDate = new Date();
+    const dropDate = new Date(machineStats.goLiveData * 1000);
+
+    // If currentDate is before dropDate, render our Countdown component
+    if (currentDate < dropDate) {
+      console.log('Before drop date!');
+      // Don't forget to pass over your dropDate!
+      return <CountdownTimer dropDate={dropDate} />;
+    }
+
+    // Else let's just return the current drop date
+    return <p>{`Drop Date: ${machineStats.goLiveDateTimeString}`}</p>;
+  };
+
+  const renderMintButton = () => (
+    <div>
+      <p>{`Items Minted: ${machineStats.itemsRedeemed} / ${machineStats.itemsAvailable}`}</p>
+      <button className="cta-button mint-button" onClick={mintToken} disabled={isMinting}>Mint NFT
+      </button>
+    </div>
+  )
+
+
+
+
   useEffect(() => {
     getCandyMachineState();
   }, []);// eslint-disable-line react-hooks/exhaustive-deps
@@ -372,14 +405,21 @@ const CandyMachine = ({ walletAddress }) => {
     // Only show this if machineStats is available
     machineStats && (
       <div className="machine-container">
+        {renderDropTimer()}
         <p>{`Drop Date: ${machineStats.goLiveDateTimeString}`}</p>
-        <p>{`Items Minted: ${machineStats.itemsRedeemed} / ${machineStats.itemsAvailable}`}</p>
-        <button className="cta-button mint-button" onClick={mintToken} disabled={isMinting}>
-            Mint NFT
-        </button>
-        {isLoadingMints && <p>LOADING MINTS...</p>}
+
+        {!mintingAllowed && (
+          <div>
+            <p>{`Items Available: ${machineStats.itemsAvailable}`}</p>
+            <button className="cta-button mint-button" disabled="true">Available Soon!
+            </button>
+          </div>
+        )}
+        {machineStats.itemsRedeemed === machineStats.itemsAvailable && <p className="sub-text">Sold Out 🙊</p>}
+        {mintingAllowed && machineStats.itemsRedeemed !== machineStats.itemsAvailable &&renderMintButton()}
+        {mintingAllowed && isLoadingMints && <p>LOADING MINTS...</p>}
         {/* If we have mints available in our array, let's render some items */}
-        {mints.length > 0 && renderMintedItems()}
+        {mintingAllowed && mints.length > 0 && renderMintedItems()}
       </div>
     )
   );
