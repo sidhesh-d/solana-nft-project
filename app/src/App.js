@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import CandyMachine from './CandyMachine';
+
 // Constants
 //2VJxgDyy1xEo8HXNNMCoc8K32bqTayNUFgV7wY8ikMw9
 const App = () => {

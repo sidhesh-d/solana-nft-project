@@ -13,6 +13,11 @@ import {
 // eslint-disable-next-line
 import CountdownTimer from '../CountdownTimer/CountdownTimer';
 
+import image1 from '../assets/0.png';
+import image2 from '../assets/1.png';
+import image3 from '../assets/2.png';
+import image4 from '../assets/3.png';
+
 const {
   // eslint-disable-next-line
   metadata: { Metadata, MetadataProgram },
@@ -404,6 +409,7 @@ const CandyMachine = ({ walletAddress }) => {
   return (
     // Only show this if machineStats is available
     machineStats && (
+      <div className="page-container">
       <div className="machine-container">
         {renderDropTimer()}
         <p>{`Drop Date: ${machineStats.goLiveDateTimeString}`}</p>
@@ -420,6 +426,19 @@ const CandyMachine = ({ walletAddress }) => {
         {mintingAllowed && isLoadingMints && <p>LOADING MINTS...</p>}
         {/* If we have mints available in our array, let's render some items */}
         {mintingAllowed && mints.length > 0 && renderMintedItems()}
+      </div>
+      <div className="image-container">
+          <div class="row">
+            <div class="column">
+              <img src={image1} alt=""/>
+              <img src={image2}  alt=""/>
+            </div>
+            <div class="column">
+              <img src={image3} alt=""/>
+              <img src={image4} alt=""/>
+            </div>
+          </div>
+      </div>
       </div>
     )
   );
