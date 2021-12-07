@@ -1,5 +1,5 @@
 # Solana NFT Project with Metaplex candy machine and Arweave
-### Deploys NFT assests to Metaplex NFT contract on Solana. Mint NFT functionality on the frontend.
+### Deploys NFT assets to Metaplex NFT contract on Solana. Mint NFT functionality on the frontend.
 
 
 ### To run React frontend
