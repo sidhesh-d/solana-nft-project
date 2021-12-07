@@ -1,10 +1,12 @@
 # Solana NFT Project with Metaplex candy machine and Arweave
 ### Deploys NFT assests to Metaplex NFT contract on Solana. Mint NFT functionality on the frontend.
 
+
 ### To run React frontend
 1. cd into the `app` folder
 2. Run `npm install` at the root of your directory
 3. Run `npm run start` to start the project
+
 
 ### To deploy assests to Solana devnet
 1. Create solana keypair, airdrop sols and point to devnet
@@ -18,7 +20,7 @@ solana airdrop 5
 git clone --branch v1.0.0 https://github.com/metaplex-foundation/metaplex.git ~/metaplex-foundation/metaplex
 yarn install --cwd ~/metaplex-foundation/metaplex/js/
 ```
-3. Upload assests in assests folder to Arweave using Metaplex CLI
+3. Upload assets in assets folder to Arweave using Metaplex CLI
 ```shell
 ts-node ~/metaplex-foundation/metaplex/js/packages/cli/src/candy-machine-cli.ts upload ./assets --env devnet --keypair ~/.config/solana/devnet.json
 ```
@@ -39,5 +41,5 @@ REACT_APP_SOLANA_NETWORK=
 REACT_APP_SOLANA_RPC_HOST=
 ```
 
-### At this point you should be able to interact with your candy machine from frontend.
+### At this point you should be able to interact with your candy machine from the frontend.
 
